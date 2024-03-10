@@ -16,6 +16,8 @@ static const std::string base64_chars =
              "abcdefghijklmnopqrstuvwxyz"
              "0123456789+/";
 
+static const byte_buffer letter_frequencies = {82, 15, 28, 34, 127, 22, 20, 61, 70, 2, 10, 40, 24, 67, 75, 19, 1, 60, 63, 91, 28, 10, 24, 1, 20, 1};
+
 class FileReader
 {
     std::ifstream file;
@@ -82,6 +84,7 @@ bool CompareLines(Line a, Line b)
 
 namespace Metrics
 {
+    
     int LetterFrequency(std::string str)
     {
         const std::array<char, 24> most_frequent_letters = {'E','T','A','O','I','N','S','H','R','D','L','U',
@@ -91,6 +94,23 @@ namespace Metrics
         for(char letter : str)
         {
             if(std::find(most_frequent_letters.begin(), most_frequent_letters.end(), letter) != most_frequent_letters.end())
+            {
+                score++;
+            }
+        }
+        return score;
+    }
+    
+
+    int LetterFrequency(byte_buffer input)
+    {
+        int score = 0;
+        const std::array<char, 12> most_frequent_letters = {'e','t','a','o','i','n','s','h','r','d','l','u'};
+                                              
+
+        for(unsigned short letter : input)
+        {
+            if(std::find(most_frequent_letters.begin(), most_frequent_letters.end(), static_cast<char>(letter)) != most_frequent_letters.end())
             {
                 score++;
             }
@@ -259,14 +279,6 @@ namespace CryptoConversions
             decrypted_buffer.push_back(result_char);
         }
 
-        /*Optional */
-        #if 0
-        if(decrypted_buffer.find(' ') == std::string::npos)
-        {
-            decrypted_buffer.clear();
-        }
-        #endif
-
         score = Metrics::LetterFrequency(decrypted_buffer);
 
         return decrypted_buffer;
@@ -288,6 +300,22 @@ namespace CryptoConversions
         return out_buffer;
     }
 
+    byte_buffer EncryptSequentialXor(byte_buffer in_buffer, byte_buffer key)
+    {
+        size_t key_max_idx {key.size()};
+        int key_idx {0};
+        byte_buffer out_buffer{};
+
+        for(unsigned short x : in_buffer)
+        {
+            out_buffer.push_back(x ^ key[key_idx % key_max_idx]);
+            key_idx++;
+        }
+
+        return out_buffer;
+    }
+
+
     void PrintByteBuffer(byte_buffer input)
     {
         for(unsigned short x : input)
@@ -301,6 +329,7 @@ namespace CryptoConversions
     {
         unsigned int possible_key_size = 0;
         double lowest_distance = UINT32_MAX;
+        byte_buffer possible_keys{};
 
         for(unsigned int key_size = 2; key_size<40; key_size++)
         {
@@ -320,6 +349,7 @@ namespace CryptoConversions
 
             if(num_samples)
             {
+                distance *= 100;
                 distance /= num_samples;
                 distance /= key_size;
 
@@ -343,7 +373,6 @@ namespace CryptoConversions
             output.push_back(chunk);
             i += chunk_length;
         }
-        std::cout << "\n\n";
     }
 
     void TransposeBuffers(std::vector<byte_buffer>& input, std::vector<byte_buffer>& output)
@@ -359,7 +388,7 @@ namespace CryptoConversions
             byte_buffer transposed_buffer{};
             for(int j=0; j<input.size(); j++)
             {
-                if(j < input[i].size())
+                if(i < input[j].size())
                 {
                     transposed_buffer.push_back(input[j][i]);
                 }
@@ -367,6 +396,43 @@ namespace CryptoConversions
             output.push_back(transposed_buffer);
         }
     }
+
+    byte_buffer DecryptSingleByteXor(byte_buffer in_buffer, unsigned short& key)
+    {
+        int best_score = 0;
+        unsigned short best_char = 0;
+        byte_buffer result_buffer{};
+        
+        for(unsigned short coding_char = 0; coding_char<255; coding_char++)
+        {
+            byte_buffer decrypted_buffer{};
+
+            for(size_t i=0; i<in_buffer.size(); i++)
+            {
+                unsigned short result = in_buffer[i] ^ coding_char;
+
+                if(result > 127)
+                {
+                    decrypted_buffer.clear();
+                    break;
+                }
+                decrypted_buffer.push_back(result);
+            }
+
+            int score = Metrics::LetterFrequency(decrypted_buffer);
+            if(score > best_score)
+            {
+                best_score = score;
+                best_char = coding_char;
+                result_buffer = decrypted_buffer;
+            }
+
+        }
+
+        key = best_char;
+        return result_buffer;
+    }
+
 }
 
 int main(void)
@@ -406,7 +472,7 @@ int main(void)
 
         int line_index{0};
 
-        std::priority_queue<Line, std::vector<Line>, std::function<bool(Line, Line)>> queue(CompareLines); 
+        std::priority_queue<Line, std::vector<Line>, std::function<bool(Line, Line)>> queue(CompareLines);
 
         for(std::string line : file_reader.GetLines())
         {
@@ -438,9 +504,9 @@ int main(void)
 
     const std::string xor_key = "ICE";
 
-    std::string result = CryptoConversions::EncryptSequentialXor(input_string, xor_key);
+    std::string result1 = CryptoConversions::EncryptSequentialXor(input_string, xor_key);
 
-    for(char x : result)
+    for(char x : result1)
     {
         std::cout << std::setfill('0') << std::setw(2) << std::hex << static_cast<short>(x);
     }
@@ -458,11 +524,36 @@ int main(void)
         std::vector<unsigned short> encoded_line = CryptoConversions::Base64Decoder(line);
         input_buffer.insert(input_buffer.end(), encoded_line.begin(), encoded_line.end());
    }
-   std::cout << std::dec << CryptoConversions::FindPossibleKeySize(input_buffer) << std::endl;
+
+    short key_size = CryptoConversions::FindPossibleKeySize(input_buffer);
 
     std::vector<byte_buffer> test{};
-    CryptoConversions::BreakBufferToChunks(input_buffer, test, 29);
+    CryptoConversions::BreakBufferToChunks(input_buffer, test, key_size);
 
     std::vector<byte_buffer> test2{};
     CryptoConversions::TransposeBuffers(test, test2);
+
+    byte_buffer key{};
+    for(byte_buffer buf1 : test2)
+    {
+        unsigned short key_char = 0;
+        CryptoConversions::DecryptSingleByteXor(buf1, key_char);
+        key.push_back(key_char);
+    }
+
+    std::cout << std::endl;
+    for(unsigned short byte : key)
+    {
+        std::cout << static_cast<char>(byte);
+    }
+    std::cout << std::endl;
+
+    byte_buffer output = CryptoConversions::EncryptSequentialXor(input_buffer, key);
+
+    for(unsigned char byte : output)
+    {
+        std::cout << byte;
+    }
+    
+
 }

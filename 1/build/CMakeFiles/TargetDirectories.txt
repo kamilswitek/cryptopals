@@ -1,3 +1,0 @@
-/home/swift/cryptopals/1/build/CMakeFiles/task1.dir
-/home/swift/cryptopals/1/build/CMakeFiles/edit_cache.dir
-/home/swift/cryptopals/1/build/CMakeFiles/rebuild_cache.dir

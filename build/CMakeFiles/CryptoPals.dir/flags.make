@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = 
+CXX_INCLUDES = -I/home/swift/cryptopals/CryptoMethods -I/home/swift/cryptopals/FormatConversions -I/home/swift/cryptopals/Metrics -I/home/swift/cryptopals/Printer -I/home/swift/cryptopals/Solutions -I/home/swift/cryptopals/Misc
 
 CXX_FLAGS = 
 

@@ -2,5 +2,5 @@
 
 int main(void)
 {
-    Solutions::Challenge4();
+    Solutions::Challenge6();
 }

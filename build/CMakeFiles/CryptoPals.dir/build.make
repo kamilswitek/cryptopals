@@ -83,94 +83,94 @@ CMakeFiles/CryptoPals.dir/CryptoPals.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CryptoPals.dir/CryptoPals.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/swift/cryptopals/CryptoPals.cpp -o CMakeFiles/CryptoPals.dir/CryptoPals.cpp.s
 
-CMakeFiles/CryptoPals.dir/CryptoMethods.cpp.o: CMakeFiles/CryptoPals.dir/flags.make
-CMakeFiles/CryptoPals.dir/CryptoMethods.cpp.o: ../CryptoMethods.cpp
-CMakeFiles/CryptoPals.dir/CryptoMethods.cpp.o: CMakeFiles/CryptoPals.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/swift/cryptopals/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/CryptoPals.dir/CryptoMethods.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CryptoPals.dir/CryptoMethods.cpp.o -MF CMakeFiles/CryptoPals.dir/CryptoMethods.cpp.o.d -o CMakeFiles/CryptoPals.dir/CryptoMethods.cpp.o -c /home/swift/cryptopals/CryptoMethods.cpp
+CMakeFiles/CryptoPals.dir/CryptoMethods/CryptoMethods.cpp.o: CMakeFiles/CryptoPals.dir/flags.make
+CMakeFiles/CryptoPals.dir/CryptoMethods/CryptoMethods.cpp.o: ../CryptoMethods/CryptoMethods.cpp
+CMakeFiles/CryptoPals.dir/CryptoMethods/CryptoMethods.cpp.o: CMakeFiles/CryptoPals.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/swift/cryptopals/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/CryptoPals.dir/CryptoMethods/CryptoMethods.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CryptoPals.dir/CryptoMethods/CryptoMethods.cpp.o -MF CMakeFiles/CryptoPals.dir/CryptoMethods/CryptoMethods.cpp.o.d -o CMakeFiles/CryptoPals.dir/CryptoMethods/CryptoMethods.cpp.o -c /home/swift/cryptopals/CryptoMethods/CryptoMethods.cpp
 
-CMakeFiles/CryptoPals.dir/CryptoMethods.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CryptoPals.dir/CryptoMethods.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/swift/cryptopals/CryptoMethods.cpp > CMakeFiles/CryptoPals.dir/CryptoMethods.cpp.i
+CMakeFiles/CryptoPals.dir/CryptoMethods/CryptoMethods.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CryptoPals.dir/CryptoMethods/CryptoMethods.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/swift/cryptopals/CryptoMethods/CryptoMethods.cpp > CMakeFiles/CryptoPals.dir/CryptoMethods/CryptoMethods.cpp.i
 
-CMakeFiles/CryptoPals.dir/CryptoMethods.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CryptoPals.dir/CryptoMethods.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/swift/cryptopals/CryptoMethods.cpp -o CMakeFiles/CryptoPals.dir/CryptoMethods.cpp.s
+CMakeFiles/CryptoPals.dir/CryptoMethods/CryptoMethods.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CryptoPals.dir/CryptoMethods/CryptoMethods.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/swift/cryptopals/CryptoMethods/CryptoMethods.cpp -o CMakeFiles/CryptoPals.dir/CryptoMethods/CryptoMethods.cpp.s
 
-CMakeFiles/CryptoPals.dir/FormatConversions.cpp.o: CMakeFiles/CryptoPals.dir/flags.make
-CMakeFiles/CryptoPals.dir/FormatConversions.cpp.o: ../FormatConversions.cpp
-CMakeFiles/CryptoPals.dir/FormatConversions.cpp.o: CMakeFiles/CryptoPals.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/swift/cryptopals/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/CryptoPals.dir/FormatConversions.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CryptoPals.dir/FormatConversions.cpp.o -MF CMakeFiles/CryptoPals.dir/FormatConversions.cpp.o.d -o CMakeFiles/CryptoPals.dir/FormatConversions.cpp.o -c /home/swift/cryptopals/FormatConversions.cpp
+CMakeFiles/CryptoPals.dir/FormatConversions/FormatConversions.cpp.o: CMakeFiles/CryptoPals.dir/flags.make
+CMakeFiles/CryptoPals.dir/FormatConversions/FormatConversions.cpp.o: ../FormatConversions/FormatConversions.cpp
+CMakeFiles/CryptoPals.dir/FormatConversions/FormatConversions.cpp.o: CMakeFiles/CryptoPals.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/swift/cryptopals/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/CryptoPals.dir/FormatConversions/FormatConversions.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CryptoPals.dir/FormatConversions/FormatConversions.cpp.o -MF CMakeFiles/CryptoPals.dir/FormatConversions/FormatConversions.cpp.o.d -o CMakeFiles/CryptoPals.dir/FormatConversions/FormatConversions.cpp.o -c /home/swift/cryptopals/FormatConversions/FormatConversions.cpp
 
-CMakeFiles/CryptoPals.dir/FormatConversions.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CryptoPals.dir/FormatConversions.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/swift/cryptopals/FormatConversions.cpp > CMakeFiles/CryptoPals.dir/FormatConversions.cpp.i
+CMakeFiles/CryptoPals.dir/FormatConversions/FormatConversions.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CryptoPals.dir/FormatConversions/FormatConversions.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/swift/cryptopals/FormatConversions/FormatConversions.cpp > CMakeFiles/CryptoPals.dir/FormatConversions/FormatConversions.cpp.i
 
-CMakeFiles/CryptoPals.dir/FormatConversions.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CryptoPals.dir/FormatConversions.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/swift/cryptopals/FormatConversions.cpp -o CMakeFiles/CryptoPals.dir/FormatConversions.cpp.s
+CMakeFiles/CryptoPals.dir/FormatConversions/FormatConversions.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CryptoPals.dir/FormatConversions/FormatConversions.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/swift/cryptopals/FormatConversions/FormatConversions.cpp -o CMakeFiles/CryptoPals.dir/FormatConversions/FormatConversions.cpp.s
 
-CMakeFiles/CryptoPals.dir/Metrics.cpp.o: CMakeFiles/CryptoPals.dir/flags.make
-CMakeFiles/CryptoPals.dir/Metrics.cpp.o: ../Metrics.cpp
-CMakeFiles/CryptoPals.dir/Metrics.cpp.o: CMakeFiles/CryptoPals.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/swift/cryptopals/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/CryptoPals.dir/Metrics.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CryptoPals.dir/Metrics.cpp.o -MF CMakeFiles/CryptoPals.dir/Metrics.cpp.o.d -o CMakeFiles/CryptoPals.dir/Metrics.cpp.o -c /home/swift/cryptopals/Metrics.cpp
+CMakeFiles/CryptoPals.dir/Metrics/Metrics.cpp.o: CMakeFiles/CryptoPals.dir/flags.make
+CMakeFiles/CryptoPals.dir/Metrics/Metrics.cpp.o: ../Metrics/Metrics.cpp
+CMakeFiles/CryptoPals.dir/Metrics/Metrics.cpp.o: CMakeFiles/CryptoPals.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/swift/cryptopals/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/CryptoPals.dir/Metrics/Metrics.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CryptoPals.dir/Metrics/Metrics.cpp.o -MF CMakeFiles/CryptoPals.dir/Metrics/Metrics.cpp.o.d -o CMakeFiles/CryptoPals.dir/Metrics/Metrics.cpp.o -c /home/swift/cryptopals/Metrics/Metrics.cpp
 
-CMakeFiles/CryptoPals.dir/Metrics.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CryptoPals.dir/Metrics.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/swift/cryptopals/Metrics.cpp > CMakeFiles/CryptoPals.dir/Metrics.cpp.i
+CMakeFiles/CryptoPals.dir/Metrics/Metrics.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CryptoPals.dir/Metrics/Metrics.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/swift/cryptopals/Metrics/Metrics.cpp > CMakeFiles/CryptoPals.dir/Metrics/Metrics.cpp.i
 
-CMakeFiles/CryptoPals.dir/Metrics.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CryptoPals.dir/Metrics.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/swift/cryptopals/Metrics.cpp -o CMakeFiles/CryptoPals.dir/Metrics.cpp.s
+CMakeFiles/CryptoPals.dir/Metrics/Metrics.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CryptoPals.dir/Metrics/Metrics.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/swift/cryptopals/Metrics/Metrics.cpp -o CMakeFiles/CryptoPals.dir/Metrics/Metrics.cpp.s
 
-CMakeFiles/CryptoPals.dir/Printer.cpp.o: CMakeFiles/CryptoPals.dir/flags.make
-CMakeFiles/CryptoPals.dir/Printer.cpp.o: ../Printer.cpp
-CMakeFiles/CryptoPals.dir/Printer.cpp.o: CMakeFiles/CryptoPals.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/swift/cryptopals/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/CryptoPals.dir/Printer.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CryptoPals.dir/Printer.cpp.o -MF CMakeFiles/CryptoPals.dir/Printer.cpp.o.d -o CMakeFiles/CryptoPals.dir/Printer.cpp.o -c /home/swift/cryptopals/Printer.cpp
+CMakeFiles/CryptoPals.dir/Printer/Printer.cpp.o: CMakeFiles/CryptoPals.dir/flags.make
+CMakeFiles/CryptoPals.dir/Printer/Printer.cpp.o: ../Printer/Printer.cpp
+CMakeFiles/CryptoPals.dir/Printer/Printer.cpp.o: CMakeFiles/CryptoPals.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/swift/cryptopals/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/CryptoPals.dir/Printer/Printer.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CryptoPals.dir/Printer/Printer.cpp.o -MF CMakeFiles/CryptoPals.dir/Printer/Printer.cpp.o.d -o CMakeFiles/CryptoPals.dir/Printer/Printer.cpp.o -c /home/swift/cryptopals/Printer/Printer.cpp
 
-CMakeFiles/CryptoPals.dir/Printer.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CryptoPals.dir/Printer.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/swift/cryptopals/Printer.cpp > CMakeFiles/CryptoPals.dir/Printer.cpp.i
+CMakeFiles/CryptoPals.dir/Printer/Printer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CryptoPals.dir/Printer/Printer.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/swift/cryptopals/Printer/Printer.cpp > CMakeFiles/CryptoPals.dir/Printer/Printer.cpp.i
 
-CMakeFiles/CryptoPals.dir/Printer.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CryptoPals.dir/Printer.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/swift/cryptopals/Printer.cpp -o CMakeFiles/CryptoPals.dir/Printer.cpp.s
+CMakeFiles/CryptoPals.dir/Printer/Printer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CryptoPals.dir/Printer/Printer.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/swift/cryptopals/Printer/Printer.cpp -o CMakeFiles/CryptoPals.dir/Printer/Printer.cpp.s
 
-CMakeFiles/CryptoPals.dir/Solutions.cpp.o: CMakeFiles/CryptoPals.dir/flags.make
-CMakeFiles/CryptoPals.dir/Solutions.cpp.o: ../Solutions.cpp
-CMakeFiles/CryptoPals.dir/Solutions.cpp.o: CMakeFiles/CryptoPals.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/swift/cryptopals/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/CryptoPals.dir/Solutions.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CryptoPals.dir/Solutions.cpp.o -MF CMakeFiles/CryptoPals.dir/Solutions.cpp.o.d -o CMakeFiles/CryptoPals.dir/Solutions.cpp.o -c /home/swift/cryptopals/Solutions.cpp
+CMakeFiles/CryptoPals.dir/Solutions/Solutions.cpp.o: CMakeFiles/CryptoPals.dir/flags.make
+CMakeFiles/CryptoPals.dir/Solutions/Solutions.cpp.o: ../Solutions/Solutions.cpp
+CMakeFiles/CryptoPals.dir/Solutions/Solutions.cpp.o: CMakeFiles/CryptoPals.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/swift/cryptopals/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/CryptoPals.dir/Solutions/Solutions.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CryptoPals.dir/Solutions/Solutions.cpp.o -MF CMakeFiles/CryptoPals.dir/Solutions/Solutions.cpp.o.d -o CMakeFiles/CryptoPals.dir/Solutions/Solutions.cpp.o -c /home/swift/cryptopals/Solutions/Solutions.cpp
 
-CMakeFiles/CryptoPals.dir/Solutions.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CryptoPals.dir/Solutions.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/swift/cryptopals/Solutions.cpp > CMakeFiles/CryptoPals.dir/Solutions.cpp.i
+CMakeFiles/CryptoPals.dir/Solutions/Solutions.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CryptoPals.dir/Solutions/Solutions.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/swift/cryptopals/Solutions/Solutions.cpp > CMakeFiles/CryptoPals.dir/Solutions/Solutions.cpp.i
 
-CMakeFiles/CryptoPals.dir/Solutions.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CryptoPals.dir/Solutions.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/swift/cryptopals/Solutions.cpp -o CMakeFiles/CryptoPals.dir/Solutions.cpp.s
+CMakeFiles/CryptoPals.dir/Solutions/Solutions.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CryptoPals.dir/Solutions/Solutions.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/swift/cryptopals/Solutions/Solutions.cpp -o CMakeFiles/CryptoPals.dir/Solutions/Solutions.cpp.s
 
 # Object files for target CryptoPals
 CryptoPals_OBJECTS = \
 "CMakeFiles/CryptoPals.dir/CryptoPals.cpp.o" \
-"CMakeFiles/CryptoPals.dir/CryptoMethods.cpp.o" \
-"CMakeFiles/CryptoPals.dir/FormatConversions.cpp.o" \
-"CMakeFiles/CryptoPals.dir/Metrics.cpp.o" \
-"CMakeFiles/CryptoPals.dir/Printer.cpp.o" \
-"CMakeFiles/CryptoPals.dir/Solutions.cpp.o"
+"CMakeFiles/CryptoPals.dir/CryptoMethods/CryptoMethods.cpp.o" \
+"CMakeFiles/CryptoPals.dir/FormatConversions/FormatConversions.cpp.o" \
+"CMakeFiles/CryptoPals.dir/Metrics/Metrics.cpp.o" \
+"CMakeFiles/CryptoPals.dir/Printer/Printer.cpp.o" \
+"CMakeFiles/CryptoPals.dir/Solutions/Solutions.cpp.o"
 
 # External object files for target CryptoPals
 CryptoPals_EXTERNAL_OBJECTS =
 
 CryptoPals: CMakeFiles/CryptoPals.dir/CryptoPals.cpp.o
-CryptoPals: CMakeFiles/CryptoPals.dir/CryptoMethods.cpp.o
-CryptoPals: CMakeFiles/CryptoPals.dir/FormatConversions.cpp.o
-CryptoPals: CMakeFiles/CryptoPals.dir/Metrics.cpp.o
-CryptoPals: CMakeFiles/CryptoPals.dir/Printer.cpp.o
-CryptoPals: CMakeFiles/CryptoPals.dir/Solutions.cpp.o
+CryptoPals: CMakeFiles/CryptoPals.dir/CryptoMethods/CryptoMethods.cpp.o
+CryptoPals: CMakeFiles/CryptoPals.dir/FormatConversions/FormatConversions.cpp.o
+CryptoPals: CMakeFiles/CryptoPals.dir/Metrics/Metrics.cpp.o
+CryptoPals: CMakeFiles/CryptoPals.dir/Printer/Printer.cpp.o
+CryptoPals: CMakeFiles/CryptoPals.dir/Solutions/Solutions.cpp.o
 CryptoPals: CMakeFiles/CryptoPals.dir/build.make
 CryptoPals: CMakeFiles/CryptoPals.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/swift/cryptopals/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable CryptoPals"

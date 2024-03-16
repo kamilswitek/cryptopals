@@ -1,7 +1,8 @@
 CMakeFiles/CryptoPals.dir/CryptoPals.cpp.o: \
  /home/swift/cryptopals/CryptoPals.cpp /usr/include/stdc-predef.h \
- /home/swift/cryptopals/Solutions.hpp /home/swift/cryptopals/Common.hpp \
- /usr/include/c++/11/vector /usr/include/c++/11/bits/stl_algobase.h \
+ /home/swift/cryptopals/Solutions/Solutions.hpp \
+ /home/swift/cryptopals/Misc/Common.hpp /usr/include/c++/11/vector \
+ /usr/include/c++/11/bits/stl_algobase.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -173,9 +174,9 @@ CMakeFiles/CryptoPals.dir/CryptoPals.cpp.o: \
  /usr/include/c++/11/bits/basic_ios.tcc \
  /usr/include/c++/11/bits/ostream.tcc /usr/include/c++/11/istream \
  /usr/include/c++/11/bits/istream.tcc \
- /home/swift/cryptopals/CryptoMethods.hpp \
- /home/swift/cryptopals/FormatConversions.hpp \
- /home/swift/cryptopals/Printer.hpp /usr/include/c++/11/fstream \
+ /home/swift/cryptopals/CryptoMethods/CryptoMethods.hpp \
+ /home/swift/cryptopals/FormatConversions/FormatConversions.hpp \
+ /home/swift/cryptopals/Printer/Printer.hpp /usr/include/c++/11/fstream \
  /usr/include/c++/11/bits/codecvt.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \

@@ -4,9 +4,18 @@ project(CryptoPals VERSION 1.0)
 
 add_executable(CryptoPals 
     CryptoPals.cpp
-    CryptoMethods.cpp
-    FormatConversions.cpp
-    Metrics.cpp
-    Printer.cpp
-    Solutions.cpp
+    CryptoMethods/CryptoMethods.cpp
+    FormatConversions/FormatConversions.cpp
+    Metrics/Metrics.cpp
+    Printer/Printer.cpp
+    Solutions/Solutions.cpp
+)
+
+target_include_directories(CryptoPals PUBLIC
+    CryptoMethods
+    FormatConversions
+    Metrics
+    Printer
+    Solutions
+    Misc
 )

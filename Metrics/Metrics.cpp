@@ -83,22 +83,6 @@ double Metrics::LetterFrequency(byte_buffer input)
     return score;
 }
 
-int Metrics::LetterFrequency2(byte_buffer input)
-{
-    int score = 0;
-
-    const std::array<char, 24> most_frequent_letters = {'e','t','a','o','i','n','s','h','r','d','l','u', 'E','T','A','O','I','N','S','H','R','D','L','U'};
-                                            
-    for(unsigned short letter : input)
-    {
-        if(std::find(most_frequent_letters.begin(), most_frequent_letters.end(), static_cast<char>(letter)) != most_frequent_letters.end())
-        {
-            score++;
-        }
-    }
-    return score;
-}
-
 int Metrics::HammingDistance(byte_buffer in1, byte_buffer in2)
 {
     unsigned int distance = -1;

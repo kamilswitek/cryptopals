@@ -1,7 +1,7 @@
 #include "Common.hpp"
 #include "CryptoMethods.hpp"
 #include "Metrics.hpp"
-#include <iostream>
+#include <numeric>
 
 byte_buffer CryptoMethods::XorBuffers(byte_buffer buffer_1, byte_buffer buffer_2)
 {
@@ -102,9 +102,15 @@ byte_buffer CryptoMethods::SingleByteXor_DecryptBuffer(byte_buffer in_buffer, un
     double best_score = 0;
     unsigned short best_char = 0;
     byte_buffer result_buffer{};
+
+    byte_buffer accepted_characters(95);
+    std::iota(accepted_characters.begin(), accepted_characters.end(), 32);
+    accepted_characters.push_back(9);
+    accepted_characters.push_back(10);
+    accepted_characters.push_back(13);
     
-    /*Look within printable characters */
-    for(unsigned short coding_char = 32; coding_char<INT8_MAX; coding_char++)
+    /*Look within printable (or end-line-ish) characters */
+    for(unsigned short coding_char : accepted_characters)
     {
         byte_buffer decrypted_buffer{};
 
@@ -112,8 +118,8 @@ byte_buffer CryptoMethods::SingleByteXor_DecryptBuffer(byte_buffer in_buffer, un
         {
             unsigned short result = in_buffer[i] ^ coding_char;
 
-            /* Non-ASCII character - skip the currently analysed char */
-            if(result > INT8_MAX)
+            /* Non-accepted_characters character - skipping like a stone */
+            if(std::find(accepted_characters.begin(), accepted_characters.end(), result) == accepted_characters.end())
             {
                 decrypted_buffer.clear();
                 break;
@@ -136,3 +142,4 @@ byte_buffer CryptoMethods::SingleByteXor_DecryptBuffer(byte_buffer in_buffer, un
 
     return result_buffer;
 }
+

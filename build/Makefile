@@ -129,29 +129,29 @@ CryptoPals/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/build
 .PHONY : CryptoPals/fast
 
-CryptoMethods.o: CryptoMethods.cpp.o
-.PHONY : CryptoMethods.o
+CryptoMethods/CryptoMethods.o: CryptoMethods/CryptoMethods.cpp.o
+.PHONY : CryptoMethods/CryptoMethods.o
 
 # target to build an object file
-CryptoMethods.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/CryptoMethods.cpp.o
-.PHONY : CryptoMethods.cpp.o
+CryptoMethods/CryptoMethods.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/CryptoMethods/CryptoMethods.cpp.o
+.PHONY : CryptoMethods/CryptoMethods.cpp.o
 
-CryptoMethods.i: CryptoMethods.cpp.i
-.PHONY : CryptoMethods.i
+CryptoMethods/CryptoMethods.i: CryptoMethods/CryptoMethods.cpp.i
+.PHONY : CryptoMethods/CryptoMethods.i
 
 # target to preprocess a source file
-CryptoMethods.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/CryptoMethods.cpp.i
-.PHONY : CryptoMethods.cpp.i
+CryptoMethods/CryptoMethods.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/CryptoMethods/CryptoMethods.cpp.i
+.PHONY : CryptoMethods/CryptoMethods.cpp.i
 
-CryptoMethods.s: CryptoMethods.cpp.s
-.PHONY : CryptoMethods.s
+CryptoMethods/CryptoMethods.s: CryptoMethods/CryptoMethods.cpp.s
+.PHONY : CryptoMethods/CryptoMethods.s
 
 # target to generate assembly for a file
-CryptoMethods.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/CryptoMethods.cpp.s
-.PHONY : CryptoMethods.cpp.s
+CryptoMethods/CryptoMethods.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/CryptoMethods/CryptoMethods.cpp.s
+.PHONY : CryptoMethods/CryptoMethods.cpp.s
 
 CryptoPals.o: CryptoPals.cpp.o
 .PHONY : CryptoPals.o
@@ -177,101 +177,101 @@ CryptoPals.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/CryptoPals.cpp.s
 .PHONY : CryptoPals.cpp.s
 
-FormatConversions.o: FormatConversions.cpp.o
-.PHONY : FormatConversions.o
+FormatConversions/FormatConversions.o: FormatConversions/FormatConversions.cpp.o
+.PHONY : FormatConversions/FormatConversions.o
 
 # target to build an object file
-FormatConversions.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/FormatConversions.cpp.o
-.PHONY : FormatConversions.cpp.o
+FormatConversions/FormatConversions.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/FormatConversions/FormatConversions.cpp.o
+.PHONY : FormatConversions/FormatConversions.cpp.o
 
-FormatConversions.i: FormatConversions.cpp.i
-.PHONY : FormatConversions.i
+FormatConversions/FormatConversions.i: FormatConversions/FormatConversions.cpp.i
+.PHONY : FormatConversions/FormatConversions.i
 
 # target to preprocess a source file
-FormatConversions.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/FormatConversions.cpp.i
-.PHONY : FormatConversions.cpp.i
+FormatConversions/FormatConversions.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/FormatConversions/FormatConversions.cpp.i
+.PHONY : FormatConversions/FormatConversions.cpp.i
 
-FormatConversions.s: FormatConversions.cpp.s
-.PHONY : FormatConversions.s
+FormatConversions/FormatConversions.s: FormatConversions/FormatConversions.cpp.s
+.PHONY : FormatConversions/FormatConversions.s
 
 # target to generate assembly for a file
-FormatConversions.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/FormatConversions.cpp.s
-.PHONY : FormatConversions.cpp.s
+FormatConversions/FormatConversions.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/FormatConversions/FormatConversions.cpp.s
+.PHONY : FormatConversions/FormatConversions.cpp.s
 
-Metrics.o: Metrics.cpp.o
-.PHONY : Metrics.o
+Metrics/Metrics.o: Metrics/Metrics.cpp.o
+.PHONY : Metrics/Metrics.o
 
 # target to build an object file
-Metrics.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/Metrics.cpp.o
-.PHONY : Metrics.cpp.o
+Metrics/Metrics.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/Metrics/Metrics.cpp.o
+.PHONY : Metrics/Metrics.cpp.o
 
-Metrics.i: Metrics.cpp.i
-.PHONY : Metrics.i
+Metrics/Metrics.i: Metrics/Metrics.cpp.i
+.PHONY : Metrics/Metrics.i
 
 # target to preprocess a source file
-Metrics.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/Metrics.cpp.i
-.PHONY : Metrics.cpp.i
+Metrics/Metrics.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/Metrics/Metrics.cpp.i
+.PHONY : Metrics/Metrics.cpp.i
 
-Metrics.s: Metrics.cpp.s
-.PHONY : Metrics.s
+Metrics/Metrics.s: Metrics/Metrics.cpp.s
+.PHONY : Metrics/Metrics.s
 
 # target to generate assembly for a file
-Metrics.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/Metrics.cpp.s
-.PHONY : Metrics.cpp.s
+Metrics/Metrics.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/Metrics/Metrics.cpp.s
+.PHONY : Metrics/Metrics.cpp.s
 
-Printer.o: Printer.cpp.o
-.PHONY : Printer.o
+Printer/Printer.o: Printer/Printer.cpp.o
+.PHONY : Printer/Printer.o
 
 # target to build an object file
-Printer.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/Printer.cpp.o
-.PHONY : Printer.cpp.o
+Printer/Printer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/Printer/Printer.cpp.o
+.PHONY : Printer/Printer.cpp.o
 
-Printer.i: Printer.cpp.i
-.PHONY : Printer.i
+Printer/Printer.i: Printer/Printer.cpp.i
+.PHONY : Printer/Printer.i
 
 # target to preprocess a source file
-Printer.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/Printer.cpp.i
-.PHONY : Printer.cpp.i
+Printer/Printer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/Printer/Printer.cpp.i
+.PHONY : Printer/Printer.cpp.i
 
-Printer.s: Printer.cpp.s
-.PHONY : Printer.s
+Printer/Printer.s: Printer/Printer.cpp.s
+.PHONY : Printer/Printer.s
 
 # target to generate assembly for a file
-Printer.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/Printer.cpp.s
-.PHONY : Printer.cpp.s
+Printer/Printer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/Printer/Printer.cpp.s
+.PHONY : Printer/Printer.cpp.s
 
-Solutions.o: Solutions.cpp.o
-.PHONY : Solutions.o
+Solutions/Solutions.o: Solutions/Solutions.cpp.o
+.PHONY : Solutions/Solutions.o
 
 # target to build an object file
-Solutions.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/Solutions.cpp.o
-.PHONY : Solutions.cpp.o
+Solutions/Solutions.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/Solutions/Solutions.cpp.o
+.PHONY : Solutions/Solutions.cpp.o
 
-Solutions.i: Solutions.cpp.i
-.PHONY : Solutions.i
+Solutions/Solutions.i: Solutions/Solutions.cpp.i
+.PHONY : Solutions/Solutions.i
 
 # target to preprocess a source file
-Solutions.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/Solutions.cpp.i
-.PHONY : Solutions.cpp.i
+Solutions/Solutions.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/Solutions/Solutions.cpp.i
+.PHONY : Solutions/Solutions.cpp.i
 
-Solutions.s: Solutions.cpp.s
-.PHONY : Solutions.s
+Solutions/Solutions.s: Solutions/Solutions.cpp.s
+.PHONY : Solutions/Solutions.s
 
 # target to generate assembly for a file
-Solutions.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/Solutions.cpp.s
-.PHONY : Solutions.cpp.s
+Solutions/Solutions.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CryptoPals.dir/build.make CMakeFiles/CryptoPals.dir/Solutions/Solutions.cpp.s
+.PHONY : Solutions/Solutions.cpp.s
 
 # Help Target
 help:
@@ -282,24 +282,24 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... CryptoPals"
-	@echo "... CryptoMethods.o"
-	@echo "... CryptoMethods.i"
-	@echo "... CryptoMethods.s"
+	@echo "... CryptoMethods/CryptoMethods.o"
+	@echo "... CryptoMethods/CryptoMethods.i"
+	@echo "... CryptoMethods/CryptoMethods.s"
 	@echo "... CryptoPals.o"
 	@echo "... CryptoPals.i"
 	@echo "... CryptoPals.s"
-	@echo "... FormatConversions.o"
-	@echo "... FormatConversions.i"
-	@echo "... FormatConversions.s"
-	@echo "... Metrics.o"
-	@echo "... Metrics.i"
-	@echo "... Metrics.s"
-	@echo "... Printer.o"
-	@echo "... Printer.i"
-	@echo "... Printer.s"
-	@echo "... Solutions.o"
-	@echo "... Solutions.i"
-	@echo "... Solutions.s"
+	@echo "... FormatConversions/FormatConversions.o"
+	@echo "... FormatConversions/FormatConversions.i"
+	@echo "... FormatConversions/FormatConversions.s"
+	@echo "... Metrics/Metrics.o"
+	@echo "... Metrics/Metrics.i"
+	@echo "... Metrics/Metrics.s"
+	@echo "... Printer/Printer.o"
+	@echo "... Printer/Printer.i"
+	@echo "... Printer/Printer.s"
+	@echo "... Solutions/Solutions.o"
+	@echo "... Solutions/Solutions.i"
+	@echo "... Solutions/Solutions.s"
 .PHONY : help
 
 

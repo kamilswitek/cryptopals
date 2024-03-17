@@ -1,3 +1,5 @@
+#pragma once 
+
 #include "Common.hpp"
 
 #define BASE64_TOKEN_NUM_CHARS  6u

@@ -5,5 +5,5 @@
 #include <array>
 #include <algorithm>
 
-typedef std::vector<unsigned short> byte_buffer;
+typedef std::vector<unsigned char> byte_buffer;
 

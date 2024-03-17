@@ -5,6 +5,7 @@
 #include "CryptoMethods.hpp"
 #include "FormatConversions.hpp"
 #include "Printer.hpp"
+#include "AES.hpp"
 
 namespace Solutions
 {
@@ -14,4 +15,5 @@ namespace Solutions
     void Challenge4();
     void Challenge5();
     void Challenge6();
+    void Challenge7();
 }

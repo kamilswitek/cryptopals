@@ -9,9 +9,11 @@ add_executable(CryptoPals
     Metrics/Metrics.cpp
     Printer/Printer.cpp
     Solutions/Solutions.cpp
+    AES/AES.cpp
 )
 
 target_include_directories(CryptoPals PUBLIC
+    AES
     CryptoMethods
     FormatConversions
     Metrics

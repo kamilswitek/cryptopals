@@ -3,8 +3,7 @@
 
 void Solutions::Challenge1()
 {
-    std::string input;
-    std::cin >> input;
+    std::string input = "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d";
 
     Printer printer = Printer();
 
@@ -17,8 +16,8 @@ void Solutions::Challenge1()
 
 void Solutions::Challenge2()
 {
-    std::string in1, in2;
-    std::cin >> in1 >> in2;
+    std::string in1 = "1c0111001f010100061a024b53535009181c";
+    std::string in2 = "686974207468652062756c6c277320657965";
 
     Printer printer = Printer();
 
@@ -132,4 +131,17 @@ void Solutions::Challenge6()
     byte_buffer output = CryptoMethods::SequentialXor_EncryptBuffer(input_buffer, key);
 
     printer.WriteIoStream(output, PrintOutputType_T::CHAR);
+}
+
+void Solutions::Challenge7()
+{
+    Printer printer = Printer();
+
+    std::string input = "YELLOW SUBMARINE";
+
+    byte_buffer key = FormatConversions::CharString2ByteBuffer(input);
+
+    byte_buffer scheduled_keys = AES::KeySchedule::GenerateKeys(key, AES_Mode_T::ENCRYPT);
+
+    printer.WriteIoStream(scheduled_keys, PrintOutputType_T::HEX);
 }

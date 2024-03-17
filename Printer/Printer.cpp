@@ -54,6 +54,7 @@ void Printer::WriteIoStream(byte_buffer buffer, PrintOutputType_T output_type, s
     }
 }
 
+
 void Printer::WriteIoStream(std::string string)
 {
     std::cout << string << std::endl;

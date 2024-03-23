@@ -1,6 +1,7 @@
 #include "AES.hpp"
 #include <iostream>
 #include "Printer.hpp"
+#include "Eigen/Dense"
 
 const std::vector<std::vector<unsigned char>> AES_S_BOX =
 {
@@ -40,6 +41,14 @@ const std::vector<std::vector<unsigned char>> AES_INVERSE_S_BOX =
     {0x60, 0x51, 0x7f, 0xa9, 0x19, 0xb5, 0x4a, 0x0d, 0x2d, 0xe5, 0x7a, 0x9f, 0x93, 0xc9, 0x9c, 0xef},
     {0xa0, 0xe0, 0x3b, 0x4d, 0xae, 0x2a, 0xf5, 0xb0, 0xc8, 0xeb, 0xbb, 0x3c, 0x83, 0x53, 0x99, 0x61},
     {0x17, 0x2b, 0x04, 0x7e, 0xba, 0x77, 0xd6, 0x26, 0xe1, 0x69, 0x14, 0x63, 0x55, 0x21, 0x0c, 0x7d},
+};
+
+const std::vector<byte_buffer> MIX_COLUMNS_TRANSFORM_MATRIX =
+{
+    {2, 3, 1, 1},
+    {1, 2, 3, 1},
+    {1, 1, 2, 3},
+    {3, 1, 1, 2},
 };
 
 const std::vector<unsigned char> RCON = {0x00, 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1B, 0x36};
@@ -101,4 +110,63 @@ byte_buffer AES::KeySchedule::GenerateKeys(byte_buffer key, AES_Mode_T aes_mode)
     }
 
     return output;
+}
+
+void AES::AddRoundKey(byte_buffer key, std::vector<byte_buffer>& state)
+{
+    for(size_t i=0; i<4; i++)
+    {
+        byte_buffer key_word(key.begin() + 4*i, key.begin() + 4*(i+1));
+        state[i] = CryptoMethods::XorBuffers(key_word, state[i]);
+    }
+}
+
+void AES::SubBytes(std::vector<byte_buffer>& state, AES_Mode_T aes_mode)
+{
+    for(size_t i=0; i<4; i++)
+    {
+        state[i] = AES::KeySchedule::SubWord(state[i], aes_mode);
+    }
+}
+
+void AES::ShiftRows(std::vector<byte_buffer>& state)
+{
+    state[1] = {state[1][1], state[1][2], state[1][3], state[1][0]};
+    state[2] = {state[2][2], state[2][3], state[2][0], state[2][1]};
+    state[3] = {state[3][3], state[3][0], state[3][1], state[3][2]};
+}
+
+void AES::MixColumns(std::vector<byte_buffer>& state, AES_Mode_T aes_mode)
+{
+    Eigen::MatrixXi m_mixcolumns(4,4);
+
+    if(aes_mode == AES_Mode_T::ENCRYPT)
+    {
+        m_mixcolumns << 2,3,1,1, 1,2,3,1, 1,1,2,3, 3,1,1,2;
+    }
+    else
+    {
+        m_mixcolumns << 14,11,13,9, 9,14,11,13, 13,9,14,11, 11,13,9,14;
+    }
+
+    for(size_t i=0; i<4; i++)
+    {
+        Eigen::VectorXi column(4);
+        column << state[0][i], state[1][i], state[2][i], state[3][i];
+
+        column = m_mixcolumns * column;
+
+        state[0][i] = column(0);
+        state[1][i] = column(1);
+        state[2][i] = column(2);
+        state[3][i] = column(3);
+    }
+}
+
+void InitState(byte_buffer chunk, std::vector<byte_buffer>& state)
+{
+    for(int row=0; row<4; row++)
+    {
+        std::copy(chunk.begin() + 4*row, chunk.begin() + 4*(row+1), state[row].begin());
+    }
 }

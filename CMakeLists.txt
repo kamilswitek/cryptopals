@@ -19,5 +19,7 @@ target_include_directories(CryptoPals PUBLIC
     Metrics
     Printer
     Solutions
+    Eigen
     Misc
+    .
 )

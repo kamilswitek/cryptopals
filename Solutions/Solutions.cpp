@@ -137,11 +137,44 @@ void Solutions::Challenge7()
 {
     Printer printer = Printer();
 
-    std::string input = "YELLOW SUBMARINE";
+    /* 1. Get input key & input buffer */
+    std::string input_key = "YELLOW SUBMARINE";
+    byte_buffer input = {};
 
-    byte_buffer key = FormatConversions::CharString2ByteBuffer(input);
+    std::ifstream input_file;
+    input_file.open("../inputs/7.txt");
 
-    byte_buffer scheduled_keys = AES::KeySchedule::GenerateKeys(key, AES_Mode_T::ENCRYPT);
+    std::string line;
+    while(getline(input_file, line))
+    {
+        byte_buffer line_buffer = FormatConversions::Base64Decoder(line);
+        input.insert(input.end(), line_buffer.begin(), line_buffer.end());
+    }
 
-    printer.WriteIoStream(scheduled_keys, PrintOutputType_T::HEX);
+    /* 2. Generate keys */
+    byte_buffer scheduled_keys = AES::KeySchedule::GenerateKeys(FormatConversions::CharString2ByteBuffer(input_key), AES_Mode_T::ENCRYPT);
+
+    for(int i=0; i<input.size(); i+=16)
+    {
+        byte_buffer current_chunk(input.begin() + i, input.begin() + i + 16);
+        
+        /* 3. Initialize state */
+        std::vector<byte_buffer> state(4, byte_buffer(4));
+        AES::InitState(current_chunk, state);
+
+        
+    }
+
+
+
+//    byte_buffer current_key(scheduled_keys.begin(), scheduled_keys.begin()+16);
+//
+//    AES::AddRoundKey(current_key, state);
+//
+//    for(byte_buffer buffer : state)
+//    {
+//        printer.WriteIoStream(buffer, HEX);
+//    }
+//
+//    printer.WriteIoStream(scheduled_keys, PrintOutputType_T::HEX);
 }

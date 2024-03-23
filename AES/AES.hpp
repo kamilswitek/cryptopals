@@ -38,5 +38,9 @@ namespace AES
         byte_buffer GenerateKeys(byte_buffer key, AES_Mode_T aes_mode);
     }
 
-    void AddRoundKey(byte_buffer key);
+    void InitState(byte_buffer chunk, std::vector<byte_buffer>& state);
+    void AddRoundKey(byte_buffer key, std::vector<byte_buffer>& state);
+    void SubBytes(std::vector<byte_buffer>& state, AES_Mode_T aes_mode);
+    void ShiftRows(std::vector<byte_buffer>& state);
+    void MixColumns(std::vector<byte_buffer>& state, AES_Mode_T aes_mode);
 }

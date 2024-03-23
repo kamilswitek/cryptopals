@@ -112,7 +112,12 @@ byte_buffer AES::KeySchedule::GenerateKeys(byte_buffer key, AES_Mode_T aes_mode)
     return output;
 }
 
-void AES::AddRoundKey(byte_buffer key, std::vector<byte_buffer>& state)
+byte_buffer AES::KeySchedule::GetKey(byte_buffer keys, size_t index)
+{
+    return byte_buffer(keys.begin() + 16*index, keys.begin() + 16*(index+1));
+}
+
+void AES::AddRoundKey(std::vector<byte_buffer>& state, byte_buffer key)
 {
     for(size_t i=0; i<4; i++)
     {
@@ -129,11 +134,20 @@ void AES::SubBytes(std::vector<byte_buffer>& state, AES_Mode_T aes_mode)
     }
 }
 
-void AES::ShiftRows(std::vector<byte_buffer>& state)
+void AES::ShiftRows(std::vector<byte_buffer>& state, AES_Mode_T aes_mode)
 {
-    state[1] = {state[1][1], state[1][2], state[1][3], state[1][0]};
-    state[2] = {state[2][2], state[2][3], state[2][0], state[2][1]};
-    state[3] = {state[3][3], state[3][0], state[3][1], state[3][2]};
+    if(aes_mode == AES_Mode_T::ENCRYPT)
+    {
+        state[1] = {state[1][1], state[1][2], state[1][3], state[1][0]};
+        state[2] = {state[2][2], state[2][3], state[2][0], state[2][1]};
+        state[3] = {state[3][3], state[3][0], state[3][1], state[3][2]};
+    }
+    else
+    {
+        state[1] = {state[1][3], state[1][0], state[1][1], state[1][2]};
+        state[2] = {state[2][2], state[2][3], state[2][0], state[2][1]};
+        state[3] = {state[3][1], state[3][2], state[3][3], state[3][0]};
+    }
 }
 
 void AES::MixColumns(std::vector<byte_buffer>& state, AES_Mode_T aes_mode)
@@ -163,10 +177,20 @@ void AES::MixColumns(std::vector<byte_buffer>& state, AES_Mode_T aes_mode)
     }
 }
 
-void InitState(byte_buffer chunk, std::vector<byte_buffer>& state)
+void AES::InitState(std::vector<byte_buffer>& state, byte_buffer chunk)
 {
-    for(int row=0; row<4; row++)
+    for(size_t i=0; i<16; i++)
     {
-        std::copy(chunk.begin() + 4*row, chunk.begin() + 4*(row+1), state[row].begin());
+        state[i%4][i/4] = chunk[i];
     }
+}
+
+byte_buffer AES::State2ByteBuffer(std::vector<byte_buffer>& state)
+{
+    byte_buffer output{};
+    for(size_t i=0; i<16; i++)
+    {
+        output.push_back(state[i%4][i/4]);
+    }
+    return output;
 }

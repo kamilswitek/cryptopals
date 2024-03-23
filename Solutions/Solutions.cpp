@@ -154,18 +154,44 @@ void Solutions::Challenge7()
     /* 2. Generate keys */
     byte_buffer scheduled_keys = AES::KeySchedule::GenerateKeys(FormatConversions::CharString2ByteBuffer(input_key), AES_Mode_T::ENCRYPT);
 
+    /* 3. Decryption begin */
+    byte_buffer decrypted_buffer{};
+
     for(int i=0; i<input.size(); i+=16)
     {
         byte_buffer current_chunk(input.begin() + i, input.begin() + i + 16);
         
         /* 3. Initialize state */
         std::vector<byte_buffer> state(4, byte_buffer(4));
-        AES::InitState(current_chunk, state);
+        AES::InitState(state, current_chunk);
 
-        
+        for(int round=10; round>=0; round--)
+        {
+            byte_buffer round_key = AES::KeySchedule::GetKey(scheduled_keys, round);
+            if(round == 10)
+            {
+                AES::AddRoundKey(state, round_key);
+            }
+            else if(round<10 && round>=1)
+            {
+                AES::ShiftRows(state, AES_Mode_T::DECRYPT);
+                AES::SubBytes(state, AES_Mode_T::DECRYPT);
+                AES::AddRoundKey(state, round_key);
+                AES::MixColumns(state, AES_Mode_T::DECRYPT);
+            }
+            else if(round == 0)
+            {
+                AES::ShiftRows(state, AES_Mode_T::DECRYPT);
+                AES::SubBytes(state, AES_Mode_T::DECRYPT);
+                AES::AddRoundKey(state, round_key);
+            }
+        }
+        byte_buffer output_chunk = AES::State2ByteBuffer(state);
+        decrypted_buffer.insert(decrypted_buffer.end(), output_chunk.begin(), output_chunk.end());
     }
 
-
+    std::cout << decrypted_buffer.size() << std::endl;
+    //printer.WriteIoStream(decrypted_buffer, PrintOutputType_T::CHAR);
 
 //    byte_buffer current_key(scheduled_keys.begin(), scheduled_keys.begin()+16);
 //

@@ -36,11 +36,13 @@ namespace AES
         byte_buffer RotWord(byte_buffer word);
         byte_buffer SubWord(byte_buffer word, AES_Mode_T s_box_type);
         byte_buffer GenerateKeys(byte_buffer key, AES_Mode_T aes_mode);
+        byte_buffer GetKey(byte_buffer keys, size_t index);
     }
 
-    void InitState(byte_buffer chunk, std::vector<byte_buffer>& state);
-    void AddRoundKey(byte_buffer key, std::vector<byte_buffer>& state);
+    void InitState(std::vector<byte_buffer>& state, byte_buffer chunk);
+    byte_buffer State2ByteBuffer(std::vector<byte_buffer>& state);
+    void AddRoundKey(std::vector<byte_buffer>& state, byte_buffer key);
     void SubBytes(std::vector<byte_buffer>& state, AES_Mode_T aes_mode);
-    void ShiftRows(std::vector<byte_buffer>& state);
+    void ShiftRows(std::vector<byte_buffer>& state, AES_Mode_T aes_mode);
     void MixColumns(std::vector<byte_buffer>& state, AES_Mode_T aes_mode);
 }

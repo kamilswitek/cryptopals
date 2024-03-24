@@ -1,5 +1,6 @@
 #include "Solutions.hpp"
 #include "Metrics.hpp"
+#include <numeric>
 
 void Solutions::Challenge1()
 {
@@ -193,4 +194,46 @@ void Solutions::Challenge7()
     }
 
     printer.WriteIoStream(decrypted_buffer, PrintOutputType_T::CHAR);
+}
+
+void Solutions::Challenge8()
+{
+    Printer printer = Printer();
+
+    std::ifstream input_file;
+    input_file.open("../inputs/8.txt");
+
+    std::string line;
+    while(getline(input_file, line))
+    {
+        byte_buffer line_buffer = FormatConversions::HexString2ByteBuffer(line);
+
+        for(size_t i=0; i<line_buffer.size(); i+=16)
+        {
+            bool duplicate_found = false;
+
+            byte_buffer chunk(line_buffer.begin() + i, line_buffer.begin() + i + 16);
+
+            for(size_t j=i+16; j<line_buffer.size(); j+=16)
+            {
+                byte_buffer chunk_to_compare(line_buffer.begin() + j, line_buffer.begin() + j + 16);
+
+                byte_buffer result = CryptoMethods::XorBuffers(chunk, chunk_to_compare);
+
+                if(std::accumulate(result.begin(), result.end(), 0) == 0)
+                {
+                    std::cout << "Possible ECB-encoded line: " << std::endl;
+                    std::cout << line << std::endl;
+                    std::cout << "Repeated chunk: " << std::endl;
+                    printer.WriteIoStream(chunk, PrintOutputType_T::HEX);
+                    duplicate_found = true;
+                    break;
+                }
+            }
+            if(duplicate_found == true)
+            {
+                break;
+            }
+        }
+    }
 }

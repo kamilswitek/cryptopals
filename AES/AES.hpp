@@ -39,7 +39,7 @@ namespace AES
         byte_buffer GetKey(byte_buffer keys, size_t index);
     }
 
-    void InitState(std::vector<byte_buffer>& state, byte_buffer chunk);
+    void ByteBuffer2State(std::vector<byte_buffer>& state, byte_buffer chunk);
     byte_buffer State2ByteBuffer(std::vector<byte_buffer>& state);
     void AddRoundKey(std::vector<byte_buffer>& state, byte_buffer key);
     void SubBytes(std::vector<byte_buffer>& state, AES_Mode_T aes_mode);

@@ -219,7 +219,7 @@ void Solutions::Challenge10()
     byte_buffer iv(AES_BLOCK_SIZE_B, 0);
 
     std::ifstream input_file;
-    input_file.open("../inputs/test_decrypt_encrypt.txt");
+    input_file.open("../inputs/10.txt");
 
     std::string line;
     while(getline(input_file, line))
@@ -228,10 +228,7 @@ void Solutions::Challenge10()
         input.insert(input.end(), line_buffer.begin(), line_buffer.end());
     }
 
-    printer.WriteIoStream(input, PrintOutputType_T::CHAR);
-
-    byte_buffer encrypted_buffer = AES::Encrypt(input, FormatConversions::CharString2ByteBuffer(input_key), AES_BlockCipherMode_T::CBC, iv);
-    byte_buffer decrypted_buffer = AES::Decrypt(encrypted_buffer, FormatConversions::CharString2ByteBuffer(input_key), AES_BlockCipherMode_T::CBC, iv);
+    byte_buffer decrypted_buffer = AES::Decrypt(input, FormatConversions::CharString2ByteBuffer(input_key), AES_BlockCipherMode_T::CBC, iv);
 
     printer.WriteIoStream(decrypted_buffer, PrintOutputType_T::CHAR);
 

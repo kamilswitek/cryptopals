@@ -152,46 +152,7 @@ void Solutions::Challenge7()
         input.insert(input.end(), line_buffer.begin(), line_buffer.end());
     }
 
-    /* 2. Generate keys */
-    byte_buffer scheduled_keys = AES::KeySchedule::GenerateKeys(FormatConversions::CharString2ByteBuffer(input_key), AES_Mode_T::ENCRYPT);
-
-    /* 3. Decryption begins */
-    byte_buffer decrypted_buffer{};
-
-    for(int i=0; i<input.size(); i+=16)
-    {
-        byte_buffer current_chunk(input.begin() + i, input.begin() + i + 16);
-        
-        /* 3. Initialize state */
-        std::vector<byte_buffer> state(4, byte_buffer(4));
-        AES::ByteBuffer2State(state, current_chunk);
-
-        for(int round=10; round>=0; round--)
-        {
-            byte_buffer round_key = AES::KeySchedule::GetKey(scheduled_keys, round);
-
-            if(round == 10)
-            {
-                AES::AddRoundKey(state, round_key);
-            }
-            else if(round<10 && round>=1)
-            {
-                AES::ShiftRows(state, AES_Mode_T::DECRYPT);
-                AES::SubBytes(state, AES_Mode_T::DECRYPT);
-                AES::AddRoundKey(state, round_key);
-                AES::MixColumns(state, AES_Mode_T::DECRYPT);
-            }
-            else if(round == 0)
-            {
-                AES::ShiftRows(state, AES_Mode_T::DECRYPT);
-                AES::SubBytes(state, AES_Mode_T::DECRYPT);
-                AES::AddRoundKey(state, round_key);
-            }
-        }
-        byte_buffer output_chunk = AES::State2ByteBuffer(state);
-
-        decrypted_buffer.insert(decrypted_buffer.end(), output_chunk.begin(), output_chunk.end());
-    }
+    byte_buffer decrypted_buffer = AES::Decrypt(input, FormatConversions::CharString2ByteBuffer(input_key), AES_BlockCipherMode_T::ECB);
 
     printer.WriteIoStream(decrypted_buffer, PrintOutputType_T::CHAR);
 }
@@ -236,4 +197,43 @@ void Solutions::Challenge8()
             }
         }
     }
+}
+
+void Solutions::Challenge9()
+{
+    Printer printer = Printer();
+
+    byte_buffer input = FormatConversions::CharString2ByteBuffer("YELLOW SUBMARINE");
+    
+    AES::PKCS7Padding(input, 20);
+
+    printer.WriteIoStream(input, HEX);
+}
+
+void Solutions::Challenge10()
+{
+    Printer printer = Printer();
+
+    byte_buffer input;
+    std::string input_key = "YELLOW SUBMARINE";
+    byte_buffer iv(AES_BLOCK_SIZE_B, 0);
+
+    std::ifstream input_file;
+    input_file.open("../inputs/test_decrypt_encrypt.txt");
+
+    std::string line;
+    while(getline(input_file, line))
+    {
+        byte_buffer line_buffer = FormatConversions::Base64Decoder(line);
+        input.insert(input.end(), line_buffer.begin(), line_buffer.end());
+    }
+
+    printer.WriteIoStream(input, PrintOutputType_T::CHAR);
+
+    byte_buffer encrypted_buffer = AES::Encrypt(input, FormatConversions::CharString2ByteBuffer(input_key), AES_BlockCipherMode_T::CBC, iv);
+    byte_buffer decrypted_buffer = AES::Decrypt(encrypted_buffer, FormatConversions::CharString2ByteBuffer(input_key), AES_BlockCipherMode_T::CBC, iv);
+
+    printer.WriteIoStream(decrypted_buffer, PrintOutputType_T::CHAR);
+
+    
 }

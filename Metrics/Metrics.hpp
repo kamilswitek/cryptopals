@@ -1,5 +1,6 @@
 #include "Common.hpp"
 
+
 namespace Metrics
 {
     double LetterFrequency(byte_buffer input);

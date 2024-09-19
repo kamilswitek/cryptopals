@@ -1,18 +1,17 @@
 #include "Solutions.hpp"
 #include "Metrics.hpp"
 #include <numeric>
+#include <fstream>
 
 void Solutions::Challenge1()
 {
     std::string input = "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d";
 
-    Printer printer = Printer();
-
     byte_buffer data = FormatConversions::HexString2ByteBuffer(input);
 
     std::string output = FormatConversions::Base64Encoder(data);
 
-    printer.WriteIoStream(output);
+    Printer::WriteIoStream(output);
 }
 
 void Solutions::Challenge2()
@@ -20,21 +19,17 @@ void Solutions::Challenge2()
     std::string in1 = "1c0111001f010100061a024b53535009181c";
     std::string in2 = "686974207468652062756c6c277320657965";
 
-    Printer printer = Printer();
-
     byte_buffer input1 = FormatConversions::HexString2ByteBuffer(in1);
     byte_buffer input2 = FormatConversions::HexString2ByteBuffer(in2);
 
     byte_buffer output = CryptoMethods::XorBuffers(input1, input2);
     
-    printer.WriteIoStream(output, PrintOutputType_T::HEX);
+    Printer::WriteIoStream(output, PrintOutputType_T::HEX);
 }
 
 void Solutions::Challenge3()
 {
     std::string hex_string = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736";
-
-    Printer printer = Printer();
 
     byte_buffer bytes = FormatConversions::HexString2ByteBuffer(hex_string);
 
@@ -42,15 +37,13 @@ void Solutions::Challenge3()
     double score = 0;
     byte_buffer result = CryptoMethods::SingleByteXor_DecryptBuffer(bytes, key, score);
 
-    printer.WriteIoStream(result, PrintOutputType_T::CHAR);
+    Printer::WriteIoStream(result, PrintOutputType_T::CHAR);
 }
 
 void Solutions::Challenge4()
 {
     std::ifstream input_file;
     input_file.open("../inputs/4.txt");
-
-    Printer printer = Printer();
 
     double best_score = 0;
     unsigned char best_key = 0;
@@ -77,29 +70,25 @@ void Solutions::Challenge4()
 
     std::cout << "Scores: " << static_cast<short>(best_key) << " " << best_score << std::endl;
     
-    printer.WriteIoStream(best_buffer, PrintOutputType_T::CHAR);
+    Printer::WriteIoStream(best_buffer, PrintOutputType_T::CHAR);
 
     input_file.close();
 }
 
 void Solutions::Challenge5()
 {
-    Printer printer = Printer();
-
     const byte_buffer input_buffer = FormatConversions::CharString2ByteBuffer("Burning 'em, if you ain't quick and nimble\nI go crazy when I hear a cymbal");
     const byte_buffer xor_key = FormatConversions::CharString2ByteBuffer("ICE");
 
     byte_buffer result = CryptoMethods::SequentialXor_EncryptBuffer(input_buffer, xor_key);
 
-    printer.WriteIoStream(result, PrintOutputType_T::HEX);
+    Printer::WriteIoStream(result, PrintOutputType_T::HEX);
 }
 
 void Solutions::Challenge6()
 {
     std::ifstream input_file;
     input_file.open("../inputs/6.txt");
-
-    Printer printer = Printer();
 
     byte_buffer input_buffer;
 
@@ -127,17 +116,15 @@ void Solutions::Challenge6()
         key.push_back(key_char);
     }
 
-    printer.WriteIoStream(key, PrintOutputType_T::CHAR);
+    Printer::WriteIoStream(key, PrintOutputType_T::CHAR);
 
     byte_buffer output = CryptoMethods::SequentialXor_EncryptBuffer(input_buffer, key);
 
-    printer.WriteIoStream(output, PrintOutputType_T::CHAR);
+    Printer::WriteIoStream(output, PrintOutputType_T::CHAR);
 }
 
 void Solutions::Challenge7()
 {
-    Printer printer = Printer();
-
     /* 1. Get input key & input buffer */
     std::string input_key = "YELLOW SUBMARINE";
     byte_buffer input = {};
@@ -154,13 +141,11 @@ void Solutions::Challenge7()
 
     byte_buffer decrypted_buffer = AES::Decrypt(input, FormatConversions::CharString2ByteBuffer(input_key), AES_BlockCipherMode_T::ECB);
 
-    printer.WriteIoStream(decrypted_buffer, PrintOutputType_T::CHAR);
+    Printer::WriteIoStream(decrypted_buffer, PrintOutputType_T::CHAR);
 }
 
 void Solutions::Challenge8()
 {
-    Printer printer = Printer();
-
     std::ifstream input_file;
     input_file.open("../inputs/8.txt");
 
@@ -186,7 +171,7 @@ void Solutions::Challenge8()
                     std::cout << "Possible ECB-encoded line: " << std::endl;
                     std::cout << line << std::endl;
                     std::cout << "Repeated chunk: " << std::endl;
-                    printer.WriteIoStream(chunk, PrintOutputType_T::HEX);
+                    Printer::WriteIoStream(chunk, PrintOutputType_T::HEX);
                     duplicate_found = true;
                     break;
                 }
@@ -201,19 +186,15 @@ void Solutions::Challenge8()
 
 void Solutions::Challenge9()
 {
-    Printer printer = Printer();
-
     byte_buffer input = FormatConversions::CharString2ByteBuffer("YELLOW SUBMARINE");
     
     AES::PKCS7Padding(input, 20);
 
-    printer.WriteIoStream(input, HEX);
+    Printer::WriteIoStream(input, HEX);
 }
 
 void Solutions::Challenge10()
 {
-    Printer printer = Printer();
-
     byte_buffer input;
     std::string input_key = "YELLOW SUBMARINE";
     byte_buffer iv(AES_BLOCK_SIZE_B, 0);
@@ -230,7 +211,111 @@ void Solutions::Challenge10()
 
     byte_buffer decrypted_buffer = AES::Decrypt(input, FormatConversions::CharString2ByteBuffer(input_key), AES_BlockCipherMode_T::CBC, iv);
 
-    printer.WriteIoStream(decrypted_buffer, PrintOutputType_T::CHAR);
-
-    
+    Printer::WriteIoStream(decrypted_buffer, PrintOutputType_T::CHAR);
 }
+
+byte_buffer AES_Encryption_Oracle(byte_buffer input, AES_BlockCipherMode_T& mode)
+{
+    byte_buffer output;
+    /* 1. Choose encryption method - AES or CBC */
+    int encryption_method = std::rand() % 2;
+
+    /* 2. Insert some random character at the front and back */
+    auto num_bytes_to_emplace = 5 + rand() % 5;
+    for(int i=0; i<num_bytes_to_emplace; i++)
+    {
+        char random_char = rand() % UINT8_MAX;
+        input.emplace(input.begin(), random_char);
+    }
+
+    num_bytes_to_emplace = AES_BLOCK_SIZE_B - num_bytes_to_emplace;
+    for(int i=0; i<num_bytes_to_emplace; i++)
+    {
+        char random_char = rand() % UINT8_MAX;
+        input.emplace_back(random_char);
+    }
+
+    /* 3. Generate a random key (and random IV) */
+    byte_buffer key(AES_BLOCK_SIZE_B);
+    byte_buffer iv(AES_BLOCK_SIZE_B);
+    for(int i=0; i<AES_BLOCK_SIZE_B; i++)
+    {
+        key[i] = rand() % UINT8_MAX;
+        iv[i] = rand() % UINT8_MAX;
+    }
+
+    if (static_cast<AES_BlockCipherMode_T>(encryption_method) == AES_BlockCipherMode_T::ECB)
+    {
+        std::cout << "Encrypting with ECB" << std::endl;
+        output = AES::Encrypt(input, key, AES_BlockCipherMode_T::ECB);
+        mode = AES_BlockCipherMode_T::ECB;
+    }
+    else
+    {
+        std::cout << "Encrypting with CBC" << std::endl;
+        output = AES::Encrypt(input, key, AES_BlockCipherMode_T::CBC, iv);
+        mode = AES_BlockCipherMode_T::CBC;
+    }
+
+    return output;
+}
+
+bool DetectPattern(const byte_buffer& input)
+{
+    bool pattern_found = false;
+
+    const byte_buffer compare(AES_BLOCK_SIZE_B, 0);
+
+    for(int i=0; i<input.size() - AES_BLOCK_SIZE_B; i+=AES_BLOCK_SIZE_B)
+    {
+        byte_buffer b1(input.begin() + i, input.begin() + i + AES_BLOCK_SIZE_B);
+        byte_buffer b2(input.begin() + i + AES_BLOCK_SIZE_B, input.begin() + i + 2 * AES_BLOCK_SIZE_B);
+        byte_buffer result = CryptoMethods::XorBuffers(b1,b2);
+        if(result == compare)
+        {
+            pattern_found = true;
+            break;
+        }
+    }
+    return pattern_found;
+}
+
+void Solutions::Challenge11()
+{
+    byte_buffer input;
+    byte_buffer encrypted_input;
+
+    std::ifstream input_file;
+    input_file.open("../inputs/11.txt");
+
+    std::string line;
+    while(getline(input_file, line))
+    {
+        byte_buffer line_buffer = FormatConversions::CharString2ByteBuffer(line);
+        input.insert(input.end(), line_buffer.begin(), line_buffer.end());
+    }
+
+    const int num_trials = 400;
+    auto wrong_answers_counter = 0;
+
+    for(int i=0; i<num_trials; i++)
+    {
+        AES_BlockCipherMode_T mode;
+        encrypted_input = AES_Encryption_Oracle(input, mode);
+        if( (AES_BlockCipherMode_T::ECB == mode) && (true == DetectPattern(encrypted_input)) )
+        {
+            std::cout << "Correct! ECB" << std::endl;
+        }
+        else if( (AES_BlockCipherMode_T::CBC == mode) && (false == DetectPattern(encrypted_input)) )
+        {
+            std::cout << "Correct! CBC" << std::endl;
+        }
+        else
+        {
+            std::cout << "Booooh!" << std::endl;
+            wrong_answers_counter++;
+        }
+    }
+    std::cout << "I was wrong " << wrong_answers_counter << " times." << std::endl;
+}
+

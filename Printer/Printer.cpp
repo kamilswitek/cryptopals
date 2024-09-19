@@ -3,16 +3,6 @@
 #include <iostream>
 #include <iomanip>
 
-Printer::Printer()
-{
-
-}
-
-Printer::Printer(std::string file_path)
-{
-    file.open(file_path);
-}
-
 void Printer::WriteIoStream(byte_buffer buffer, PrintOutputType_T output_type, std::string spacing)
 {
     switch(output_type)

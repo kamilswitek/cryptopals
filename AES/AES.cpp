@@ -33,7 +33,6 @@ byte_buffer AES::KeySchedule::SubWord(byte_buffer word, AES_Mode_T aes_mode)
 
 byte_buffer AES::KeySchedule::GenerateKeys(byte_buffer key)
 {
-    Printer printer = Printer();
 
     const unsigned short r = 11; /* 11 round keys for AES-128 */
     const unsigned short N = 4;
@@ -102,7 +101,6 @@ void AES::ShiftRows(std::vector<byte_buffer>& state, AES_Mode_T aes_mode)
 
 void AES::MixColumns(std::vector<byte_buffer>& state, AES_Mode_T aes_mode)
 {
-    Printer printer = Printer();
 
     byte_buffer result(AES_STATE_MATRIX_SIZE);
 
@@ -176,14 +174,26 @@ byte_buffer AES::Encrypt(byte_buffer input, byte_buffer key, AES_BlockCipherMode
     {
         
     }
-    
-    auto current_iv = std::move(*iv);
+
+    byte_buffer current_iv(AES_BLOCK_SIZE_B);
+
+    if(iv == std::nullopt)
+    {
+        std::fill(current_iv.begin(), current_iv.end(), 0);
+    }
+    else
+    {
+        current_iv = std::move(*iv);
+    }
 
     for(int i=0; i<input.size(); i+=AES_BLOCK_SIZE_B)
     {
         byte_buffer current_chunk(input.begin() + i, input.begin() + i + AES_BLOCK_SIZE_B);
 
-        current_chunk = CryptoMethods::XorBuffers(current_chunk, current_iv);
+        if(AES_BlockCipherMode_T::CBC == block_cipher_mode)
+        {
+            current_chunk = CryptoMethods::XorBuffers(current_chunk, current_iv);
+        }
         
         std::vector<byte_buffer> state(AES_STATE_MATRIX_SIZE, byte_buffer(AES_STATE_MATRIX_SIZE));
         AES::ByteBuffer2State(state, current_chunk);
@@ -213,7 +223,10 @@ byte_buffer AES::Encrypt(byte_buffer input, byte_buffer key, AES_BlockCipherMode
         }
         byte_buffer output_chunk = AES::State2ByteBuffer(state);
 
-        current_iv = output_chunk;
+        if(AES_BlockCipherMode_T::CBC == block_cipher_mode)
+        {
+            current_iv = output_chunk;
+        }
 
         encrypted_buffer.insert(encrypted_buffer.end(), output_chunk.begin(), output_chunk.end());
     }

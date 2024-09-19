@@ -19,4 +19,5 @@ namespace Solutions
     void Challenge8();
     void Challenge9();
     void Challenge10();
+    void Challenge11();
 }

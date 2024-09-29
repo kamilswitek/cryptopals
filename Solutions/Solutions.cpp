@@ -319,3 +319,79 @@ void Solutions::Challenge11()
     std::cout << "I was wrong " << wrong_answers_counter << " times." << std::endl;
 }
 
+byte_buffer Oracle12(byte_buffer input)
+{
+    const std::string text_to_decode = "Um9sbGluJyBpbiBteSA1LjAKV2l0aCBteSByYWctdG9wIGRvd24gc28gbXkgaGFpciBjYW4gYmxvdwpUaGUgZ2lybGllcyBvbiBzdGFuZGJ5IHdhdmluZyBqdXN0IHRvIHNheSBoaQpEaWQgeW91IHN0b3A/IE5vLCBJIGp1c3QgZHJvdmUgYnkK";
+
+    byte_buffer bytes_to_append = FormatConversions::Base64Decoder(text_to_decode);
+
+    byte_buffer output;
+
+    /* 3. Generate a random key */
+    static byte_buffer key(AES_BLOCK_SIZE_B);
+    static bool key_initialized = false;
+
+    if(!key_initialized)
+    {
+        srand(time(NULL));
+        for(int i=0; i<AES_BLOCK_SIZE_B; i++)
+        {
+            key[i] = rand() % UINT8_MAX;
+        }
+        key_initialized = true;
+    }
+
+    input.insert(input.end(), bytes_to_append.begin(), bytes_to_append.end());
+
+    output = AES::Encrypt(input, key, AES_BlockCipherMode_T::ECB);
+
+    return output;
+}
+
+void Solutions::Challenge12()
+{
+    const unsigned int num_ascii_chars = INT8_MAX;
+    std::vector<byte_buffer> possible_outputs;
+    possible_outputs.reserve(num_ascii_chars);
+
+    /* Find the size of our buffer to *crack* */
+    unsigned int data_size = Oracle12(byte_buffer(0)).size();
+
+    /* calculate possible outputs of ECB */
+    
+    byte_buffer prefix(AES_BLOCK_SIZE_B - 1);
+    std::fill(prefix.begin(), prefix.end(), (unsigned char)('A'));
+    byte_buffer matcher = prefix;
+    byte_buffer decoded_data;
+
+    for(unsigned int current_letter_idx=0; current_letter_idx<data_size; current_letter_idx++)
+    {
+        prefix.resize(AES_BLOCK_SIZE_B - 1 - current_letter_idx % AES_BLOCK_SIZE_B);
+        byte_buffer output = Oracle12(prefix);
+
+        for(unsigned int i=0; i<num_ascii_chars; i++)
+        {
+            byte_buffer input = matcher;
+            input.push_back(i);
+            possible_outputs[i] = Oracle12(input);
+        }
+
+        for(unsigned int ascii_to_find=0; ascii_to_find<num_ascii_chars; ascii_to_find++)
+        {
+            byte_buffer test_chunk(possible_outputs[ascii_to_find].begin(), possible_outputs[ascii_to_find].begin() + AES_BLOCK_SIZE_B);
+            byte_buffer output_chunk(output.begin() + AES_BLOCK_SIZE_B * (current_letter_idx / AES_BLOCK_SIZE_B), output.begin() + AES_BLOCK_SIZE_B * (1 + current_letter_idx / AES_BLOCK_SIZE_B));
+
+            if(test_chunk == output_chunk)
+            {
+                decoded_data.push_back((char)ascii_to_find);
+
+                for(auto matcher_idx = 0; matcher_idx < AES_BLOCK_SIZE_B - 1; matcher_idx++)
+                {
+                    std::swap(matcher[matcher_idx], matcher[matcher_idx+1]);
+                }
+                matcher[AES_BLOCK_SIZE_B - 2] = ascii_to_find;
+            }
+        }
+    }
+    Printer::WriteIoStream(decoded_data, PrintOutputType_T::CHAR);
+}

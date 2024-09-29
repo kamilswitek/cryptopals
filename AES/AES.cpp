@@ -286,9 +286,11 @@ byte_buffer AES::Decrypt(byte_buffer input, byte_buffer key, AES_BlockCipherMode
         }
         byte_buffer output_chunk = AES::State2ByteBuffer(state);
 
-        output_chunk = CryptoMethods::XorBuffers(output_chunk, current_iv);
-
-        current_iv = current_chunk;
+        if(AES_BlockCipherMode_T::CBC == block_cipher_mode)
+        {
+            output_chunk = CryptoMethods::XorBuffers(output_chunk, current_iv);
+            current_iv = output_chunk;
+        }
 
         decrypted_buffer.insert(decrypted_buffer.end(), output_chunk.begin(), output_chunk.end());
     }

@@ -36,6 +36,16 @@ byte_buffer FormatConversions::CharString2ByteBuffer(std::string str)
     return output;
 }
 
+std::string FormatConversions::ByteBuffer2CharString(byte_buffer buffer)
+{
+    std::string result;
+    for(unsigned char b : buffer)
+    {
+        result.push_back(b);
+    }
+    return result;
+}
+
 std::string FormatConversions::Base64Encoder(byte_buffer input)
 {
     std::string base64_output{};

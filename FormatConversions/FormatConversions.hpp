@@ -5,6 +5,8 @@ namespace FormatConversions
 {
     byte_buffer CharString2ByteBuffer(std::string str);
 
+    std::string ByteBuffer2CharString(byte_buffer input);
+
     byte_buffer HexString2ByteBuffer(std::string hex);
 
     std::string Base64Encoder(byte_buffer input);

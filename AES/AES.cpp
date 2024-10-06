@@ -147,13 +147,14 @@ byte_buffer AES::State2ByteBuffer(std::vector<byte_buffer>& state)
     return output;
 }
 
-void AES::PKCS7Padding(byte_buffer& block, size_t block_length)
+void AES::PKCS7Padding(byte_buffer& buffer, size_t block_length)
 {
-    unsigned char new_byte = block_length - block.size();
+    unsigned char new_byte = AES_BLOCK_SIZE_B - (buffer.size() % AES_BLOCK_SIZE_B);
 
-    while(block.size() < block_length)
+    unsigned int bytes_to_append = new_byte; 
+    while(bytes_to_append--)
     {
-        block.push_back(new_byte);
+        buffer.push_back(new_byte);
     }
 }
 
@@ -162,6 +163,8 @@ byte_buffer AES::Encrypt(byte_buffer input, byte_buffer key, AES_BlockCipherMode
     byte_buffer scheduled_keys = AES::KeySchedule::GenerateKeys(key);
 
     byte_buffer encrypted_buffer{};
+
+    AES::PKCS7Padding(input, AES_BLOCK_SIZE_B);
 
     try
     {

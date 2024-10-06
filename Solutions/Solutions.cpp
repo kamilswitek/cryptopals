@@ -395,3 +395,134 @@ void Solutions::Challenge12()
     }
     Printer::WriteIoStream(decoded_data, PrintOutputType_T::CHAR);
 }
+
+typedef std::pair<std::string, std::string> str_pair;
+
+std::vector<str_pair> ProfileParser(std::string encoded_profile)
+{
+    std::vector<str_pair> profile_structure;
+
+    std::string key;
+    std::string value;
+
+    bool key_propagated = true;
+
+    for(char& c : encoded_profile)
+    {
+        if(c == '=')
+        {
+            key_propagated = false;
+        }
+        else if(c == '&')
+        {
+            key_propagated = true;
+            profile_structure.push_back(str_pair(key,value));
+            key.clear();
+            value.clear();
+        }
+        else if((c > AES_BLOCK_SIZE_B) && (c < INT8_MAX))
+        {
+            if(key_propagated)
+            {
+                key.push_back(c);   
+            }
+            else
+            {
+                value.push_back(c);
+            }
+        }
+    }
+
+    profile_structure.push_back(str_pair(key,value));
+
+    return profile_structure;
+}
+
+std::string Profile_for(std::string email)
+{
+    for(auto it = email.begin(); it != email.end(); it++)
+    {
+        if((*it == '&') || (*it == '='))
+        {
+            email.replace(it, it + 1, "");
+        }
+    }
+
+    std::string decoded_profile;
+
+    std::vector<str_pair> user_structure;
+    
+    user_structure.emplace_back("email", email + '&');
+    user_structure.emplace_back("uid", "10" + '&');
+    user_structure.emplace_back("role", "user");
+
+    for(auto entry : user_structure)
+    {
+        decoded_profile.append(entry.first);
+        decoded_profile.append("=");
+        decoded_profile.append(entry.second);
+    }
+
+    return decoded_profile;
+}
+
+
+byte_buffer Encrypt_Profile(std::string& encoded_profile, byte_buffer key)
+{
+    byte_buffer profile = FormatConversions::CharString2ByteBuffer(encoded_profile);
+
+    return AES::Encrypt(profile, key, AES_BlockCipherMode_T::ECB);
+}
+
+std::string Decrypt_Profile(byte_buffer& profile, byte_buffer key)
+{
+    byte_buffer result = AES::Decrypt(profile, key, AES_BlockCipherMode_T::ECB);
+
+    std::string decoded_string = FormatConversions::ByteBuffer2CharString(result);
+
+    return decoded_string;
+}
+
+void Solutions::Challenge13()
+{
+    byte_buffer key = FormatConversions::CharString2ByteBuffer("QWERTYUIASDFGHJK");
+
+    /* First let's find an 'email=swift@onet' encrypted buffer */
+    std::string crack_profile_1 = Profile_for("swift@onet");
+    byte_buffer encrypted_profile_1 = Encrypt_Profile(crack_profile_1, key);
+
+    std::cout << "First output: " << std::endl;
+    Printer::WriteIoStream(encrypted_profile_1, PrintOutputType_T::HEX);
+
+    const std::string first_buffer = "3f80a20d39a635d6957249f5ef2874be"; //email=swift@onet
+
+    /* Then the second buffer would be '.pl&uid=10&role=' */
+
+    std::string crack_profile_2 = Profile_for("abcdefghij.pl");
+    byte_buffer encrypted_profile_2 = Encrypt_Profile(crack_profile_2, key);
+
+    std::cout << "Second output: " << std::endl;
+    Printer::WriteIoStream(encrypted_profile_2, PrintOutputType_T::HEX);
+
+    const std::string second_buffer = "11fb0b656e022457898ebf9f5679793a"; // .pl&uid=10&role=
+
+    /* And a third one, admin is at the beginning of block, so we need to PKCS7-pad it with 11 bytes of value \11 */
+
+    std::string crack_profile_3 = Profile_for("7890123456admin\11\11\11\11\11\11\11\11\11\11\11");
+    byte_buffer encrypted_profile_3 = Encrypt_Profile(crack_profile_3, key);
+
+    std::cout << "Third output: " << std::endl;
+    Printer::WriteIoStream(encrypted_profile_3, PrintOutputType_T::HEX);
+
+    const std::string third_buffer = "902a0c1fb5d1c5e4f5a80d7e02338e47"; //admin
+
+    byte_buffer attack_profile = FormatConversions::HexString2ByteBuffer(first_buffer + second_buffer + third_buffer);
+    std::string decrypted_profile = Decrypt_Profile(attack_profile, key);
+
+    std::vector<str_pair> decoded_profile = ProfileParser(decrypted_profile);
+    for(auto p : decoded_profile)
+    {
+        std::cout << p.first << " " << p.second << std::endl;
+    }
+
+}

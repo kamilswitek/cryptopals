@@ -158,6 +158,28 @@ void AES::PKCS7Padding(byte_buffer& buffer, size_t block_length)
     }
 }
 
+bool AES::PKCS7PaddingValidator(std::string buffer)
+{
+    bool padding_valid = false;
+    if( (buffer.length() % AES_BLOCK_SIZE_B) == 0)
+    {
+        unsigned char last_byte = buffer.back();
+        unsigned int bytes_popped = 0;
+
+        while(buffer.back() == last_byte)
+        {
+            buffer.pop_back();
+            bytes_popped++;
+        }
+
+        if(bytes_popped == (unsigned int)last_byte)
+        {
+            padding_valid = true;
+        }
+    }
+    return padding_valid;
+}
+
 byte_buffer AES::Encrypt(byte_buffer input, byte_buffer key, AES_BlockCipherMode_T block_cipher_mode, const std::optional<byte_buffer>& iv)
 {
     byte_buffer scheduled_keys = AES::KeySchedule::GenerateKeys(key);

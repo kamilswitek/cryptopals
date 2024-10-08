@@ -68,4 +68,5 @@ namespace AES
     void ShiftRows(std::vector<byte_buffer>& state, AES_Mode_T aes_mode);
     void MixColumns(std::vector<byte_buffer>& state, AES_Mode_T aes_mode);
     void PKCS7Padding(byte_buffer& block, size_t block_length);
+    bool PKCS7PaddingValidator(std::string buffer);
 }

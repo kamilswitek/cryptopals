@@ -685,3 +685,11 @@ void Solutions::Challenge14()
 
     Printer::WriteIoStream(decoded_data, PrintOutputType_T::CHAR);
 }
+
+void Solutions::Challenge15()
+{
+    bool padding_valid = false;
+    padding_valid = AES::PKCS7PaddingValidator("ICE ICE BABY\x05\x05\x05\x05");
+
+    std::cout << padding_valid << std::endl;
+}

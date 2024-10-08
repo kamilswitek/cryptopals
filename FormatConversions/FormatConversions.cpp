@@ -26,7 +26,7 @@ byte_buffer FormatConversions::HexString2ByteBuffer(std::string hex)
     return output;
 }
 
-byte_buffer FormatConversions::CharString2ByteBuffer(std::string str)
+byte_buffer FormatConversions::CharString2ByteBuffer(const std::string& str)
 {
     byte_buffer output{};
     for(char c : str)

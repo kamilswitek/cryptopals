@@ -3,7 +3,7 @@
 
 namespace FormatConversions
 {
-    byte_buffer CharString2ByteBuffer(std::string str);
+    byte_buffer CharString2ByteBuffer(const std::string& str);
 
     std::string ByteBuffer2CharString(byte_buffer input);
 

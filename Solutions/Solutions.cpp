@@ -526,3 +526,162 @@ void Solutions::Challenge13()
     }
 
 }
+
+byte_buffer Oracle14(const byte_buffer& input)
+{
+    byte_buffer data = input;
+
+    #define BYTES_TO_APPEND 30u
+    static bool module_initialized = false;
+    
+    static byte_buffer random_prefix;
+    random_prefix.reserve(BYTES_TO_APPEND);
+    static byte_buffer key(AES_BLOCK_SIZE_B);
+
+    if(!module_initialized)
+    {
+        srand(time(NULL));
+
+        unsigned int random_bytes_count = rand() % BYTES_TO_APPEND;
+
+        for(unsigned int i=0; i<random_bytes_count; i++)
+        {
+            random_prefix.push_back(rand() % UINT8_MAX);
+        }
+
+        for(int i=0; i<AES_BLOCK_SIZE_B; i++)
+        {
+            key[i] = rand() % UINT8_MAX;
+        }
+
+        module_initialized = true;
+    }
+
+    const std::string text_to_decode = "Um9sbGluJyBpbiBteSA1LjAKV2l0aCBteSByYWctdG9wIGRvd24gc28gbXkgaGFpciBjYW4gYmxvdwpUaGUgZ2lybGllcyBvbiBzdGFuZGJ5IHdhdmluZyBqdXN0IHRvIHNheSBoaQpEaWQgeW91IHN0b3A/IE5vLCBJIGp1c3QgZHJvdmUgYnkK";
+
+    byte_buffer bytes_to_append = FormatConversions::Base64Decoder(text_to_decode);
+
+    byte_buffer output;
+
+    /* 3. Generate a random key */
+
+
+    data.insert(data.begin(), random_prefix.begin(), random_prefix.end());
+
+    data.insert(data.end(), bytes_to_append.begin(), bytes_to_append.end());
+
+    output = AES::Encrypt(data, key, AES_BlockCipherMode_T::ECB);
+
+    return output;
+}
+
+void Solutions::Challenge14()
+{
+    /* First let's provide some (X * AES_BLOCK_SIZE_B) long string as a buffer between random-appended bytes and our data to decrypt */
+
+    std::string a_string = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+
+    byte_buffer input_findpadding;
+    byte_buffer output_findpadding;
+
+    unsigned int num_identical_blocks = 0;
+    unsigned int num_identical_blocks_prev = 0;
+
+    while(!a_string.empty())
+    {
+        num_identical_blocks = 0;
+        input_findpadding = FormatConversions::CharString2ByteBuffer(a_string);
+        output_findpadding = Oracle14(input_findpadding);
+
+        for(unsigned int i=0; i<output_findpadding.size() - AES_BLOCK_SIZE_B; i+=AES_BLOCK_SIZE_B)
+        {
+            /* Check for identical adjacent output blocks */
+            byte_buffer current_block(output_findpadding.begin() + i, output_findpadding.begin() + i + AES_BLOCK_SIZE_B);
+            byte_buffer next_block(output_findpadding.begin() + i + AES_BLOCK_SIZE_B, output_findpadding.begin() + i + 2*AES_BLOCK_SIZE_B);
+
+            if(current_block == next_block)
+            {
+                num_identical_blocks++;
+            }
+        }
+        if( (num_identical_blocks_prev != num_identical_blocks) && (num_identical_blocks_prev != 0) )
+        {
+            /* If there are less identical chunks than before popping back one 'A', it means that one of our A's got mixed with data we want to extract */
+            break;
+        }
+
+        a_string.pop_back();
+
+        num_identical_blocks_prev = num_identical_blocks;
+    }
+
+    /* That's our buffer that makes the data we want to extract AES_BLOCK_SIZE_B-aligned */
+    a_string.push_back('A');
+    byte_buffer a_buffer = FormatConversions::CharString2ByteBuffer(a_string);
+
+    byte_buffer output_findstartinglength = Oracle14(a_buffer);
+
+    unsigned int start_index = 0;
+
+    for(unsigned int i=0; i<output_findstartinglength.size() - AES_BLOCK_SIZE_B; i+=AES_BLOCK_SIZE_B)
+    {
+        byte_buffer current_block(output_findstartinglength.begin() + i, output_findstartinglength.begin() + i + AES_BLOCK_SIZE_B);
+        byte_buffer next_block(output_findstartinglength.begin() + i + AES_BLOCK_SIZE_B, output_findstartinglength.begin() + i + 2*AES_BLOCK_SIZE_B);
+
+        if(current_block == next_block)
+        {
+            start_index = i + 2 * AES_BLOCK_SIZE_B;
+        }
+    }
+
+    unsigned int data_to_decode_size = output_findstartinglength.size() - start_index;
+
+    const unsigned int num_ascii_chars = INT8_MAX;
+    std::vector<byte_buffer> possible_outputs;
+    possible_outputs.reserve(num_ascii_chars);
+
+    byte_buffer prefix(AES_BLOCK_SIZE_B - 1);
+    std::fill(prefix.begin(), prefix.end(), (unsigned char)('A'));
+    byte_buffer matcher = prefix;
+    byte_buffer decoded_data;
+
+
+    for(unsigned int current_letter_idx=0; current_letter_idx<data_to_decode_size; current_letter_idx++)
+    {
+        byte_buffer input_buffer = a_buffer;
+
+        prefix.resize(AES_BLOCK_SIZE_B - 1 - current_letter_idx % AES_BLOCK_SIZE_B);
+
+        input_buffer.insert(input_buffer.end(), prefix.begin(), prefix.end());
+
+        byte_buffer current_output = Oracle14(input_buffer);
+
+        for(unsigned int i=0; i<num_ascii_chars; i++)
+        {
+            byte_buffer test_input = a_buffer;
+            test_input.insert(test_input.end(), matcher.begin(), matcher.end());
+            test_input.push_back(i);
+            possible_outputs[i] = Oracle14(test_input);
+        }
+
+        for(unsigned int ascii_to_find=0; ascii_to_find<num_ascii_chars; ascii_to_find++)
+        {
+            byte_buffer test_block(possible_outputs[ascii_to_find].begin() + start_index, possible_outputs[ascii_to_find].begin() + start_index + AES_BLOCK_SIZE_B);
+            byte_buffer output_block(current_output.begin() + start_index + AES_BLOCK_SIZE_B * (current_letter_idx / AES_BLOCK_SIZE_B), current_output.begin() + start_index + AES_BLOCK_SIZE_B * (1 + current_letter_idx / AES_BLOCK_SIZE_B));
+
+            if(test_block == output_block)
+            {
+                decoded_data.push_back((char)ascii_to_find);
+
+                for(auto matcher_idx = 0; matcher_idx < AES_BLOCK_SIZE_B - 1; matcher_idx++)
+                {
+                    std::swap(matcher[matcher_idx], matcher[matcher_idx+1]);
+                }
+                matcher[AES_BLOCK_SIZE_B - 2] = ascii_to_find;
+                break;
+            }
+        }
+    }
+
+    Printer::WriteIoStream(decoded_data, PrintOutputType_T::CHAR);
+}

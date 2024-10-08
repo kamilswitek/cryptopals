@@ -5,12 +5,20 @@
 
 void Printer::WriteIoStream(byte_buffer buffer, PrintOutputType_T output_type, std::string spacing)
 {
+    unsigned int bytes_count = 0;
     switch(output_type)
     {
         case PrintOutputType_T::HEX:
             for(unsigned short byte : buffer)
             {
                 std::cout << std::hex << std::setw(2) << std::setfill('0') << byte << spacing;
+                
+                /* Break the line for each AES-128 block */
+                bytes_count++;
+                if((bytes_count % 16) == 0)
+                {
+                    std::cout << std::endl;
+                }
             }
             std::cout << std::endl;
             break;
